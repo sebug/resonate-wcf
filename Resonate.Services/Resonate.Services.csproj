@@ -4,4 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CoreWCF.Http" Version="0.1.0-alpha.89" />
+  </ItemGroup>
 </Project>
