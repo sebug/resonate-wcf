@@ -6,3 +6,7 @@ what is available on this API surface.
 
 There's currently no deployed version, but I guess I'll put it on Kubernetes
 at one point.
+
+To consume the service reference on the client layer you'll need dotnet-svcutil
+
+	dotnet tool install --global dotnet-svcutil

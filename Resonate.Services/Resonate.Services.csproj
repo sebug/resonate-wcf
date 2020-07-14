@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoreWCF.Http" Version="0.1.0-alpha.89" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Entities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CoreWCF.Http" Version="0.1.0-alpha.93" />
   </ItemGroup>
 </Project>
