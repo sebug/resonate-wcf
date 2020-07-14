@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonate.Services", "Resonate.Services.csproj", "{87F71CE0-46D0-4CCF-AF87-1736624CB3E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonate.Services.Contracts", "Resonate.Services.Contracts\Resonate.Services.Contracts.csproj", "{C080013E-7E8C-42C4-B11E-A23186F4A38C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonate.Entities", "Resonate.Entities\Resonate.Entities.csproj", "{0F65C641-7293-4537-87D1-EDE386CDEF93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +17,13 @@ Global
 		{87F71CE0-46D0-4CCF-AF87-1736624CB3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87F71CE0-46D0-4CCF-AF87-1736624CB3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87F71CE0-46D0-4CCF-AF87-1736624CB3E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C080013E-7E8C-42C4-B11E-A23186F4A38C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C080013E-7E8C-42C4-B11E-A23186F4A38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C080013E-7E8C-42C4-B11E-A23186F4A38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C080013E-7E8C-42C4-B11E-A23186F4A38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F65C641-7293-4537-87D1-EDE386CDEF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F65C641-7293-4537-87D1-EDE386CDEF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F65C641-7293-4537-87D1-EDE386CDEF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F65C641-7293-4537-87D1-EDE386CDEF93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
