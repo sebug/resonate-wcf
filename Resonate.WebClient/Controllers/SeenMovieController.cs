@@ -1,9 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.ServiceModel;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Resonate.Services.Contracts;
+using Resonate.Services.Entities;
 
 namespace Resonate.WebClient.Controllers
 {
@@ -11,11 +17,20 @@ namespace Resonate.WebClient.Controllers
     [ApiController]
     public class SeenMovieController : ControllerBase
     {
+        private readonly string _basicHttpEndpointEndpointAddress = "http://localhost:5000/SeenMovieService";
+        private readonly static string _soapEnvelopeContent = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"><soapenv:Body><GetAll xmlns = \"http://tempuri.org/\" ></GetAll></soapenv:Body></soapenv:Envelope>";
+
         // GET: api/SeenMovie
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<SeenMovie> Get()
         {
-            return new string[] { "value1", "value2" };
+            var factory = new ChannelFactory<ISeenMovieService>(new BasicHttpBinding(), new EndpointAddress(this._basicHttpEndpointEndpointAddress));
+            factory.Open();
+            var channel = factory.CreateChannel();
+            ((IClientChannel)channel).Open();
+            var result = channel.GetAll();
+            ((IClientChannel)channel).Close();
+            return result;
         }
 
         // GET: api/SeenMovie/5

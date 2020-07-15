@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Resonate.WebClient.Entities
+namespace Resonate.Services.Entities
 {
     [DataContract]
     public class SeenMovie

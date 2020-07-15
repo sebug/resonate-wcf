@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using Resonate.WebClient.Entities;
+using Resonate.Services.Entities;
 
-namespace Resonate.WebClient.Contracts
+namespace Resonate.Services.Contracts
 {
     [ServiceContract]
     public interface ISeenMovieService
