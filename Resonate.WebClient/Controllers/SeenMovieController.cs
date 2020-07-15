@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -24,13 +25,31 @@ namespace Resonate.WebClient.Controllers
         [HttpGet]
         public List<SeenMovie> Get()
         {
-            var factory = new ChannelFactory<ISeenMovieService>(new BasicHttpBinding(), new EndpointAddress(this._basicHttpEndpointEndpointAddress));
+            var binding = new BasicHttpBinding();
+            var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
             factory.Open();
             var channel = factory.CreateChannel();
-            ((IClientChannel)channel).Open();
-            var result = channel.GetAll();
-            ((IClientChannel)channel).Close();
-            return result;
+            var context = ((IContextChannel)channel);
+            using (var scope = new OperationContextScope(context))
+            {
+                HttpRequestMessageProperty requestMessageProperty;
+                if (!OperationContext.Current.OutgoingMessageProperties.ContainsKey(HttpRequestMessageProperty.Name))
+                {
+                    requestMessageProperty = new HttpRequestMessageProperty();
+                    OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = requestMessageProperty;
+                }
+                else
+                {
+                    requestMessageProperty = (HttpRequestMessageProperty)OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name];
+                }
+
+                requestMessageProperty.Headers["AuthInfo"] = "Hello";
+                ((IClientChannel)channel).Open();
+                var result = channel.GetAll();
+                ((IClientChannel)channel).Close();
+
+                return result;
+            }
         }
 
         // GET: api/SeenMovie/5
