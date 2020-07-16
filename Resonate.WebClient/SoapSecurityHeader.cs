@@ -20,11 +20,5 @@ namespace Resonate.WebClient
             writer.WriteValue("Hey Hey");
             writer.WriteEndElement();
         }
-
-        protected override void OnWriteStartHeader(XmlDictionaryWriter writer, MessageVersion messageVersion)
-        {
-            writer.WriteStartElement("authouter", Name, Namespace);
-            writer.WriteXmlnsAttribute("authouter", Namespace);
-        }
     }
 }
