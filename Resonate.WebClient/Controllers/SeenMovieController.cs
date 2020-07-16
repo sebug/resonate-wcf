@@ -25,29 +25,13 @@ namespace Resonate.WebClient.Controllers
         public async Task<List<SeenMovie>> Get()
         {
             var binding = new BasicHttpsBinding();
-            var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
-            factory.Open();
+            var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));            factory.Open();
+            factory.Endpoint.EndpointBehaviors.Add(new CustomEndpointBehavior());
             var channel = factory.CreateChannel();
             var context = ((IContextChannel)channel);
-            List<SeenMovie> result;
-            using (var scope = new OperationContextScope(context))
-            {
-                HttpRequestMessageProperty requestMessageProperty;
-                if (!OperationContext.Current.OutgoingMessageProperties.ContainsKey(HttpRequestMessageProperty.Name))
-                {
-                    requestMessageProperty = new HttpRequestMessageProperty();
-                    OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = requestMessageProperty;
-                }
-                else
-                {
-                    requestMessageProperty = (HttpRequestMessageProperty)OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name];
-                }
-                requestMessageProperty.Headers["AuthInfo"] = "Hello";
-
-                ((IClientChannel)channel).Open();
-                result = await channel.GetAll();
-                ((IClientChannel)channel).Close();
-            }
+            ((IClientChannel)channel).Open();
+            var result = await channel.GetAll();
+            ((IClientChannel)channel).Close();
 
             return result;
         }
