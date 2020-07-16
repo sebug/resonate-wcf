@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Resonate.Services.Entities;
 
 namespace Resonate.Services.Contracts
@@ -9,9 +10,9 @@ namespace Resonate.Services.Contracts
     public interface ISeenMovieService
     {
         [OperationContract]
-        SeenMovie Add(SeenMovie movie);
+        Task<SeenMovie> Add(SeenMovie movie);
 
         [OperationContract]
-        List<SeenMovie> GetAll();
+        Task<List<SeenMovie>> GetAll();
     }
 }

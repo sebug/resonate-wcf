@@ -19,11 +19,10 @@ namespace Resonate.WebClient.Controllers
     public class SeenMovieController : ControllerBase
     {
         private readonly string _basicHttpEndpointEndpointAddress = "http://localhost:5000/SeenMovieService";
-        private readonly static string _soapEnvelopeContent = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"><soapenv:Body><GetAll xmlns = \"http://tempuri.org/\" ></GetAll></soapenv:Body></soapenv:Envelope>";
 
         // GET: api/SeenMovie
         [HttpGet]
-        public List<SeenMovie> Get()
+        public async Task<List<SeenMovie>> Get()
         {
             var binding = new BasicHttpBinding();
             var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
@@ -42,10 +41,10 @@ namespace Resonate.WebClient.Controllers
                 {
                     requestMessageProperty = (HttpRequestMessageProperty)OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name];
                 }
-
                 requestMessageProperty.Headers["AuthInfo"] = "Hello";
+
                 ((IClientChannel)channel).Open();
-                var result = channel.GetAll();
+                var result = await channel.GetAll();
                 ((IClientChannel)channel).Close();
 
                 return result;
