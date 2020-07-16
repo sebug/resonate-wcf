@@ -17,10 +17,11 @@ namespace Resonate.Services
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-            .UseKestrel(options => { options.ListenLocalhost(5000); })
-            .UseUrls("http://localhost:5000")
-            .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

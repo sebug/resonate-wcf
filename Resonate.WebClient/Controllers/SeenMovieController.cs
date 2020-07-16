@@ -18,17 +18,18 @@ namespace Resonate.WebClient.Controllers
     [ApiController]
     public class SeenMovieController : ControllerBase
     {
-        private readonly string _basicHttpEndpointEndpointAddress = "http://localhost:5000/SeenMovieService";
+        private readonly string _basicHttpEndpointEndpointAddress = "https://localhost:5001/SeenMovieService";
 
         // GET: api/SeenMovie
         [HttpGet]
         public async Task<List<SeenMovie>> Get()
         {
-            var binding = new BasicHttpBinding();
+            var binding = new BasicHttpsBinding();
             var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
             factory.Open();
             var channel = factory.CreateChannel();
             var context = ((IContextChannel)channel);
+            List<SeenMovie> result;
             using (var scope = new OperationContextScope(context))
             {
                 HttpRequestMessageProperty requestMessageProperty;
@@ -44,11 +45,11 @@ namespace Resonate.WebClient.Controllers
                 requestMessageProperty.Headers["AuthInfo"] = "Hello";
 
                 ((IClientChannel)channel).Open();
-                var result = await channel.GetAll();
+                result = await channel.GetAll();
                 ((IClientChannel)channel).Close();
-
-                return result;
             }
+
+            return result;
         }
 
         // GET: api/SeenMovie/5
