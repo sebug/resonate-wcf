@@ -18,20 +18,18 @@ namespace Resonate.WebClient.Controllers
     [ApiController]
     public class SeenMovieAPIController : ControllerBase
     {
-        private readonly string _basicHttpEndpointEndpointAddress = "https://localhost:5001/SeenMovieService";
+        private readonly ISeenMovieService SeenMovieService;
+
+        public SeenMovieAPIController(ISeenMovieService seenMovieService)
+        {
+            this.SeenMovieService = seenMovieService;
+        }
 
         // GET: api/SeenMovie
         [HttpGet]
         public async Task<List<SeenMovie>> Get()
         {
-            var binding = new BasicHttpsBinding();
-            var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
-            factory.Endpoint.EndpointBehaviors.Add(new CustomEndpointBehavior());
-            factory.Open();
-            var channel = factory.CreateChannel();
-            ((IClientChannel)channel).Open();
-            var result = await channel.GetAll();
-            ((IClientChannel)channel).Close();
+            var result = await this.SeenMovieService.GetAll();
 
             return result;
         }

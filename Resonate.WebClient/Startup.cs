@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Resonate.Services.Contracts;
 
 namespace Resonate.WebClient
 {
@@ -20,9 +22,21 @@ namespace Resonate.WebClient
 
         public IConfiguration Configuration { get; }
 
+        private readonly string _basicHttpEndpointEndpointAddress = "https://localhost:5001/SeenMovieService";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ISeenMovieService>(spv =>
+            {
+                var binding = new BasicHttpsBinding();
+                var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
+                factory.Endpoint.EndpointBehaviors.Add(new CustomEndpointBehavior());
+                factory.Open();
+                var channel = factory.CreateChannel();
+                ((IClientChannel)channel).Open();
+                return channel;
+            });
             services.AddControllersWithViews();
         }
 
