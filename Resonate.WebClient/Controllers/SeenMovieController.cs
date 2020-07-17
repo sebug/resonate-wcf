@@ -25,8 +25,6 @@ namespace Resonate.WebClient.Controllers
         public async Task<List<SeenMovie>> Get()
         {
             var binding = new BasicHttpsBinding();
-            binding.UseDefaultWebProxy = true;
-            binding.BypassProxyOnLocal = false;
             var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
             factory.Endpoint.EndpointBehaviors.Add(new CustomEndpointBehavior());
             factory.Open();
