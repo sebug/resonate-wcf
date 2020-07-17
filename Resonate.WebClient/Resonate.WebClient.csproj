@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Entities\" />
+    <Folder Include="Views\SeenMovie\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.ServiceModel.Http" Version="4.7.0" />
