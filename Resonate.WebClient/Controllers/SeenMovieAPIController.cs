@@ -14,7 +14,7 @@ using Resonate.Services.Entities;
 
 namespace Resonate.WebClient.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/SeenMovie")]
     [ApiController]
     public class SeenMovieController : ControllerBase
     {
