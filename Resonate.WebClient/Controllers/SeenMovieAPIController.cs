@@ -16,7 +16,7 @@ namespace Resonate.WebClient.Controllers
 {
     [Route("api/SeenMovie")]
     [ApiController]
-    public class SeenMovieController : ControllerBase
+    public class SeenMovieAPIController : ControllerBase
     {
         private readonly string _basicHttpEndpointEndpointAddress = "https://localhost:5001/SeenMovieService";
 
