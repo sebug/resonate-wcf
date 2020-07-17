@@ -34,7 +34,6 @@ namespace Resonate.WebClient
                 factory.Endpoint.EndpointBehaviors.Add(new CustomEndpointBehavior());
                 factory.Open();
                 var channel = factory.CreateChannel();
-                ((IClientChannel)channel).Open();
                 return channel;
             });
             services.AddControllersWithViews();
