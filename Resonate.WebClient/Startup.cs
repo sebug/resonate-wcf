@@ -22,15 +22,20 @@ namespace Resonate.WebClient
 
         public IConfiguration Configuration { get; }
 
-        private readonly string _basicHttpEndpointEndpointAddress = "https://localhost:5001/SeenMovieService";
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ISeenMovieService>(spv =>
             {
+                string basicHttpEndpointAddress = Configuration["ServiceBaseAddress"];
+                if (!basicHttpEndpointAddress.EndsWith('/'))
+                {
+                    basicHttpEndpointAddress += "/";
+                }
+                basicHttpEndpointAddress += "SeenMovieService";
                 var binding = new BasicHttpsBinding();
-                var factory = new ChannelFactory<ISeenMovieService>(binding, new EndpointAddress(this._basicHttpEndpointEndpointAddress));
+                var factory = new ChannelFactory<ISeenMovieService>(binding,
+                    new EndpointAddress(basicHttpEndpointAddress));
                 factory.Endpoint.EndpointBehaviors.Add(new CustomEndpointBehavior());
                 factory.Open();
                 var channel = factory.CreateChannel();
