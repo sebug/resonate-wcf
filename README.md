@@ -7,3 +7,7 @@ what is available on this API surface.
 There's currently no deployed version, but I guess I'll put it on Kubernetes
 at one point.
 
+## Environment variables for local testing
+You'll have to hint at the service layer base address by setting RESONATE_ServiceBaseAddress. If you want it to be picked up, put it in ~/Library/LaunchAgents/environment.plist :
+
+	launchctl setenv RESONATE_ServiceBaseAddress https://localhost:5001
