@@ -1,7 +1,27 @@
 ﻿@{
     ViewData["Title"] = "Seen Movies";
 }
+@model System.Collections.Generic.List<Resonate.Services.Entities.SeenMovie>
 
 <div class="text-center">
     <h1 class="display-4">Seen Movies</h1>
 </div>
+
+@if (this.Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var seenMovie in this.Model)
+            {
+                <tr>
+                    <td>@seenMovie.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
