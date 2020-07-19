@@ -9,6 +9,6 @@
     <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CoreWCF.Http" Version="0.1.0-alpha.93" />
+    <PackageReference Include="CoreWCF.Http" Version="0.1.0-alpha.96" />
   </ItemGroup>
 </Project>
